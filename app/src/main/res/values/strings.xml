@@ -1,3 +1,6 @@
 <resources>
     <string name="app_name">Where\'s My Pet</string>
+    <string name="txtUser">Nombre de Usuario</string>
+    <string name="txtPass">Contraseña</string>
+    <string name="logoDescription">A pinpoint vector with a paw in the middle.</string>
 </resources>
