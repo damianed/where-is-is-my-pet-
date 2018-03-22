@@ -3,4 +3,5 @@
     <string name="txtUser">Nombre de Usuario</string>
     <string name="txtPass">Contraseña</string>
     <string name="logoDescription">A pinpoint vector with a paw in the middle.</string>
+    <string name="btnOk">Ok</string>
 </resources>
