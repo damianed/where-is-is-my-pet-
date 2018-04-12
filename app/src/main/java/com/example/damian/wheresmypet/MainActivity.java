@@ -44,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
         final String username = user;
         final String password = pass;
-        String url = "http://172.10.2.27/login.php";//direccion del host
+        String url = "http://tec.codigobueno.org/WMP/login.php";//direccion del host
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -53,9 +53,12 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         if(response.equals("true")){
-                            Toast.makeText(MainActivity.this,"Log in exitoso", Toast.LENGTH_SHORT);
+                            Toast.makeText(MainActivity.this,"Log in exitoso", Toast.LENGTH_SHORT).show();
                         }else if(response.equals("false")){
-                            Toast.makeText(MainActivity.this,"El usuario o la contraseña",Toast.LENGTH_SHORT);
+                            Toast.makeText(MainActivity.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
+                        }
+                        else {
+                            Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
                         }
                     }
                 },

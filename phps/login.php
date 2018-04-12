@@ -16,7 +16,7 @@ if(isset($_GET['username'])){
   }
   $db->close();
 }else{
-  echo "username is not set"
+  echo "username is not set";
 }
 
 ?>
