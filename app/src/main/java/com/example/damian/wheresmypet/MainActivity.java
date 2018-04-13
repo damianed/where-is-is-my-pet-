@@ -1,5 +1,6 @@
 package com.example.damian.wheresmypet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -53,7 +54,8 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         if(response.equals("true")){
-                            Toast.makeText(MainActivity.this,"Log in exitoso", Toast.LENGTH_SHORT).show();
+                            Intent myIntent = new Intent(MainActivity.this, MainMenu.class);
+                            MainActivity.this.startActivity(myIntent);
                         }else if(response.equals("false")){
                             Toast.makeText(MainActivity.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
                         }
