@@ -1,11 +1,13 @@
 package com.example.damian.wheresmypet;
 
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 
-public class MainMenu extends AppCompatActivity {
+public class menu extends AppCompatActivity {
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_menu);
     }
 }
