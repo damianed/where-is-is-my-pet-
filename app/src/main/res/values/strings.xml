@@ -4,4 +4,7 @@
     <string name="txtPass">Contraseña</string>
     <string name="logoDescription">A pinpoint vector with a paw in the middle.</string>
     <string name="btnOk">Ok</string>
+    <string name="txtHola">Hola</string>
+    <string name="btnPets">Mascotas</string>
+    <string name="btnUsers">Usuarios</string>
 </resources>

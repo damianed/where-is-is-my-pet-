@@ -4,13 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/back1"
+    android:background="@drawable/back"
     tools:context="com.example.damian.wheresmypet.MainActivity">
 
     <LinearLayout
         android:id="@+id/linLay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@drawable/back"
         android:gravity="center_vertical"
         android:orientation="vertical"
         android:paddingLeft="30dp"
@@ -34,10 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:ems="10"
+            android:hint="@string/txtUser"
             android:inputType="textPersonName"
-            android:text="@string/txtUser"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
 
         <EditText
             android:id="@+id/txtPass"
@@ -45,10 +47,11 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="30dp"
             android:ems="10"
+            android:hint="@string/txtPass"
             android:inputType="textPassword"
-            android:text="@string/txtPass"
             android:textAlignment="center"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/colorAccent"
+            android:textColorHint="@color/colorAccent" />
 
         <Button
             android:id="@+id/btnOk"

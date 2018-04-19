@@ -59,9 +59,6 @@ public class MainActivity extends AppCompatActivity {
                         }else if(response.equals("false")){
                             Toast.makeText(MainActivity.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
                         }
-                        else {
-                            Toast.makeText(MainActivity.this, response, Toast.LENGTH_SHORT).show();
-                        }
                     }
                 },
                 new Response.ErrorListener()
