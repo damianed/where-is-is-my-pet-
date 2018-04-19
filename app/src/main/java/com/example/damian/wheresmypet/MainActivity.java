@@ -22,6 +22,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     EditText txtUser, txtPass;
+    public static String username;
     Button btnOk;
 
 
@@ -43,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void logIn(String user, String pass){
         RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
-        final String username = user;
+        username = user;
         final String password = pass;
         String url = "http://tec.codigobueno.org/WMP/login.php";//direccion del host
 
