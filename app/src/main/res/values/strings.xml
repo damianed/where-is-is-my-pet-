@@ -2,9 +2,11 @@
     <string name="app_name">Where\'s My Pet</string>
     <string name="txtUser">Nombre de Usuario</string>
     <string name="txtPass">Contraseña</string>
-    <string name="logoDescription">A pinpoint vector with a paw in the middle.</string>
+    <string name="logoDescription">Un punto de mira con una huella de perro en el medio.</string>
     <string name="btnOk">Ok</string>
     <string name="txtHola">Hola</string>
     <string name="btnPets">Mascotas</string>
     <string name="btnUsers">Usuarios</string>
+    <string name="txtRegister">¿No tienes cuenta?</string>
+    <string name="btnRegister">Regístrate</string>
 </resources>

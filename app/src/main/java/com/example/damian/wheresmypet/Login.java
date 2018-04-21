@@ -19,11 +19,10 @@ import com.android.volley.toolbox.Volley;
 import java.util.HashMap;
 import java.util.Map;
 
-public class MainActivity extends AppCompatActivity {
+public class Login extends AppCompatActivity {
 
-    EditText txtUser, txtPass;
+    private EditText txtUser, txtPass;
     public static String username;
-    Button btnOk;
 
 
     @Override
@@ -32,7 +31,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         txtUser=findViewById(R.id.txtUser);
         txtPass=findViewById(R.id.txtPass);
-        btnOk=findViewById(R.id.btnOk);
+        Button btnOk = findViewById(R.id.btnOk);
+        Button btnRegister = findViewById(R.id.btnRegister);
 
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -40,10 +40,18 @@ public class MainActivity extends AppCompatActivity {
                 logIn(txtUser.getText().toString(),txtPass.getText().toString());
             }
         });
+
+        btnRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(Login.this, Register.class);
+                Login.this.startActivity(myIntent);
+            }
+        });
     }
 
     private void logIn(String user, String pass){
-        RequestQueue queue = Volley.newRequestQueue(MainActivity.this);
+        RequestQueue queue = Volley.newRequestQueue(Login.this);
         username = user;
         final String password = pass;
         String url = "http://tec.codigobueno.org/WMP/login.php";//direccion del host
@@ -55,10 +63,10 @@ public class MainActivity extends AppCompatActivity {
                     public void onResponse(String response) {
                         // response
                         if(response.equals("true")){
-                            Intent myIntent = new Intent(MainActivity.this, MainMenu.class);
-                            MainActivity.this.startActivity(myIntent);
+                            Intent myIntent = new Intent(Login.this, MainMenu.class);
+                            Login.this.startActivity(myIntent);
                         }else if(response.equals("false")){
-                            Toast.makeText(MainActivity.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
