@@ -15,6 +15,7 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         TextView txtUser=findViewById(R.id.txtUser);
+
         txtUser.setText(username);
 
         Button btnPets= findViewById(R.id.btnPets);
