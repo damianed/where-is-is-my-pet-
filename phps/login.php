@@ -1,6 +1,7 @@
 <?php
 include("db.php");
-$db=new MySQL;
+$db=new MySQL();
+
 if(isset($_GET['username'])){
   $username=$_GET['username'];
   $password=$_GET['password'];

@@ -1,5 +1,4 @@
 <?php
-
 class MySQL{
 	private $conexion;
 
@@ -29,6 +28,5 @@ class MySQL{
 	public function close(){
 		mysqli_close($this->conexion);
 	}
-
 }
 ?>
