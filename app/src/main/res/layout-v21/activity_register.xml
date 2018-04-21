@@ -44,8 +44,7 @@
             android:gravity="center"
             android:hint="@string/txtPass"
             android:inputType="textPassword"
-            android:backgroundTint="@android:color/black"
-            android:textCursorDrawable="@null" />
+            android:backgroundTint="@android:color/black" />
 
         <Button
             android:id="@+id/btnRegister"
