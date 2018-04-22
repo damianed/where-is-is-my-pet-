@@ -1,8 +1,8 @@
 package com.example.damian.wheresmypet;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -25,10 +25,12 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Pets extends AppCompatActivity {
-    RequestQueue queue = Volley.newRequestQueue(Pets.this);
+    RequestQueue queue;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        queue = Volley.newRequestQueue(Pets.this);
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pets);
         String url = "http://tec.codigobueno.org/WMP/query.php";
@@ -39,9 +41,11 @@ public class Pets extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         try {
+                            System.out.print("HOTO " + response);
                             JSONArray pets = new JSONArray(response);
                             showPets(pets);
                         } catch (JSONException e) {
+                            System.out.print("HOTO " + response);
                             e.printStackTrace();
                         }
                     }
@@ -59,7 +63,7 @@ public class Pets extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("query", "SELECT p.id_pet, p.picture, p.name from Pet p, User u where p.id_user = u.id_user and u.username = " + getIntent().getStringExtra("username") + ";");
+                params.put("query", "SELECT p.id_pet, p.picture, p.name from PETS p, USERS u where p.id_user = u.id_user and u.username = '" + Login.username + "';");
 
                 return params;
             }
@@ -69,17 +73,13 @@ public class Pets extends AppCompatActivity {
 
     }
 
-    private void showPets(JSONArray array) throws JSONException {
-        ArrayList<JSONObject> pets = new ArrayList<>();
-        for(int i=0;i<array.length();i++){
-            pets.add(array.getJSONObject(i));
-        }
-
-        for (JSONObject pet:pets){
+    private void showPets(JSONArray pets) throws JSONException {
+        for (int i=0;i<pets.length();i++){
+            JSONArray pet = pets.getJSONArray(i);
             Button petButton = new Button(this);
-            petButton.setText(pet.get("2").toString());
+            petButton.setText(pet.get(2).toString());
             //setimage to pet.get("1");
-            LinearLayout layout = (LinearLayout) findViewById(R.id.pets_layout);
+            LinearLayoutCompat layout = findViewById(R.id.pets_layout);
             layout.addView(petButton);
         }
     }

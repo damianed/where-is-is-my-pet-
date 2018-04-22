@@ -11,19 +11,18 @@ public class MainMenu extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        final String username = getIntent().getStringExtra("username");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         TextView txtUser=findViewById(R.id.txtUser);
 
-        txtUser.setText(username);
+        txtUser.setText(Login.username);
 
         Button btnPets= findViewById(R.id.btnPets);
         btnPets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainMenu.this, Pets.class);
-                myIntent.putExtra("username", username);
+                myIntent.putExtra("username", Login.username);
                 MainMenu.this.startActivity(myIntent);
             }
         });
