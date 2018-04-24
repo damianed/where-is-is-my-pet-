@@ -12,36 +12,6 @@
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:gravity="center"
-            android:orientation="vertical">
-
-            <TextView
-                android:id="@+id/txtHola"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:fontFamily="@font/cabin"
-                android:gravity="center"
-                android:text="@string/txtHola"
-                android:textSize="40sp" />
-
-            <TextView
-                android:id="@+id/txtUser"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="40dp"
-                android:layout_marginRight="40dp"
-                android:gravity="center"
-                android:text="@string/btnUsers"
-                android:textSize="40sp" />
-
-        </LinearLayout>
-
         <Button
             android:id="@+id/btnPets"
             android:layout_width="match_parent"

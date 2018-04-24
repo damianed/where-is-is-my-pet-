@@ -13,10 +13,6 @@ public class MainMenu extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
-        TextView txtUser=findViewById(R.id.txtUser);
-
-        txtUser.setText(Login.username);
-
         Button btnPets= findViewById(R.id.btnPets);
         btnPets.setOnClickListener(new View.OnClickListener() {
             @Override

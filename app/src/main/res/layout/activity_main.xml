@@ -67,7 +67,7 @@
                 android:gravity="center"
                 android:text="@string/txtRegister"
                 android:textColor="@color/hintColor"
-                android:textSize="20sp" />
+                android:textSize="15sp" />
 
             <Button
                 android:id="@+id/btnRegister"
@@ -78,7 +78,8 @@
                 android:background="@android:color/transparent"
                 android:gravity="center"
                 android:text="@string/btnRegister"
-                android:textColor="@color/hintColor" />
+                android:textColor="@color/hintColor"
+                android:textSize="10sp" />
 
         </LinearLayout>
 
