@@ -8,4 +8,10 @@
     <string name="btnUsers">Usuarios</string>
     <string name="txtRegister">¿No tienes cuenta?</string>
     <string name="btnRegister">Regístrate</string>
+    <string name="txtExample">Example</string>
+    <string name="btnEdit">Editar Información</string>
+    <string name="txtName">Nombre</string>
+    <string name="txtLastName">Apellido</string>
+    <string name="txtEmail">Correo Electrónico</string>
+    <string name="userImage">Foto de perfil definida por el usuario.</string>
 </resources>

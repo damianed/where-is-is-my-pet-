@@ -14,11 +14,19 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_menu);
         Button btnPets= findViewById(R.id.btnPets);
+        Button btnUsers = findViewById(R.id.btnUsers);
         btnPets.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(MainMenu.this, Pets.class);
                 myIntent.putExtra("username", Login.username);
+                MainMenu.this.startActivity(myIntent);
+            }
+        });
+        btnUsers.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(MainMenu.this, User.class);
                 MainMenu.this.startActivity(myIntent);
             }
         });
