@@ -27,7 +27,11 @@
 
         <activity android:name=".Pets" />
         <activity android:name=".Register" />
-        <activity android:name=".User"></activity>
+        <activity android:name=".User" />
+        <activity android:name=".PetDetails" />
+        <activity android:name=".PetLocationMap" />
+
+        <meta-data android:name="com.google.android.geo.API_KEY" android:value="AIzaSyDVkmzKTrbxn0XJkGk2ZYCP2lfnoFyZSlM"/>
     </application>
 
 </manifest>

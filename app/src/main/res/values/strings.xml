@@ -14,4 +14,7 @@
     <string name="txtLastName">Apellido</string>
     <string name="txtEmail">Correo Electrónico</string>
     <string name="userImage">Foto de perfil definida por el usuario.</string>
+    <string name="btnLocation">VER LOCACIÓN</string>
+    <string name="btnEditInfo">Editar Información</string>
+    <string name="petImageDescription">Foto de macota</string>
 </resources>
