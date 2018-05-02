@@ -31,7 +31,7 @@ public class EditUser extends AppCompatActivity {
     String userID;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(final Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
@@ -50,6 +50,7 @@ public class EditUser extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 getId();
+                saveUser();
             }
         });
     }
