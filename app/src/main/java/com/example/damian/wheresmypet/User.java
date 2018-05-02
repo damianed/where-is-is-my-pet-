@@ -65,7 +65,7 @@ public class User extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("query", "SELECT username, name, last_name, email, img  FROM USERS WHERE username = '" + Login.username + "';");
+                params.put("query", "SELECT username, name, last_name, email  FROM USERS WHERE username = '" + Login.username + "';");
 
                 return params;
             }
