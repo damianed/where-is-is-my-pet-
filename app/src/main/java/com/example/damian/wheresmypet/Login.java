@@ -62,6 +62,7 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // response
+                        System.out.println(response);
                         if(response.equals("true")){
                             Intent myIntent = new Intent(Login.this, MainMenu.class);
                             Login.this.startActivity(myIntent);

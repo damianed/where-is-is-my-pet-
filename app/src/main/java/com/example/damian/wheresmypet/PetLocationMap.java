@@ -1,8 +1,16 @@
 package com.example.damian.wheresmypet;
 
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.StringRequest;
+import com.android.volley.toolbox.Volley;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.MapView;
@@ -12,19 +20,34 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Timer;
+import java.util.TimerTask;
+
 
 public class PetLocationMap extends AppCompatActivity implements OnMapReadyCallback {
     private MapView mapView;
     private GoogleMap gmap;
+    private String id_pet;
+    private Marker marker;
+    RequestQueue queue;
+    private LatLng location;
+
+    private static String url = "http://tec.codigobueno.org/WMP/query.php";
 
     private static final String MAP_VIEW_BUNDLE_KEY = "MapViewBundleKey";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        queue = Volley.newRequestQueue(PetLocationMap.this);
         setContentView(R.layout.activity_pet_location_map);
         mapView = findViewById(R.id.mapView);
-
+        id_pet = getIntent().getStringExtra("id");
 
 
         Bundle mapViewBundle = null;
@@ -83,7 +106,6 @@ public class PetLocationMap extends AppCompatActivity implements OnMapReadyCallb
     public void onMapReady(GoogleMap googleMap) {
         gmap = googleMap;
         gmap.setMinZoomPreference(12);
-        final LatLng ny = new LatLng(40.7143528, -74.0059731);
 
         gmap.setIndoorEnabled(true);
         UiSettings uiSettings = gmap.getUiSettings();
@@ -93,39 +115,81 @@ public class PetLocationMap extends AppCompatActivity implements OnMapReadyCallb
         uiSettings.setCompassEnabled(true);
         uiSettings.setZoomControlsEnabled(true);
 
-        MarkerOptions markerOptions = new MarkerOptions();
-        markerOptions.position(ny);
-        final Marker mymarker = gmap.addMarker(markerOptions);
 
-        gmap.moveCamera(CameraUpdateFactory.newLatLng(ny));
-
-        Thread thread = new Thread(new Runnable() {
-            @Override
-            public void run() {
-                MoveMarker(mymarker, ny, 0);
-            }
-        });
-
-        thread.start();
+        petLocation();
     }
 
-    private void MoveMarker(final Marker marker,LatLng pos, int times) {
-            if(times==10) return;
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+    private void petLocation() {
+        new Timer().scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                getPetLocation();
             }
+        }, 0, 10000);
+    }
+
+    private void getPetLocation() {
+        StringRequest postRequest = updateLocation();
+        queue.add(postRequest);
+    }
+
+    @NonNull
+    private StringRequest updateLocation() {
+        return new StringRequest(Request.Method.POST, url,
+                    new Response.Listener<String>()
+                    {
+                        @Override
+                        public void onResponse(String response) {
+                            try {
+                                System.out.println(response);
+                                JSONArray locationCoords = (JSONArray) (new JSONArray(response)).get(0);
+                                Double latitude = Double.parseDouble(locationCoords.get(0).toString());
+                                Double longitude = Double.parseDouble(locationCoords.get(1).toString());
+                                System.out.println("Latitud:" + latitude + "  Longitude: " + longitude);
+                                location = new LatLng(latitude,longitude);
+                                moveMarker(location);
+                            } catch (JSONException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    },
+                    new Response.ErrorListener()
+                    {
+                        @Override
+                        public void onErrorResponse(VolleyError error) {
+                            // error
+                            Log.d("Error.Response", error.getMessage());
+                        }
+                    }
+            ) {
+                @Override
+                protected Map<String, String> getParams()
+                {
+                    Map<String, String>  params = new HashMap<String, String>();
+                    params.put("query", "SELECT latitude, longitude from PET_LOCATION where id_pet = " + id_pet);
+
+                    return params;
+                }
+            };
+    }
+
+
+    private void moveMarker(LatLng pos) {
             final LatLng newPos = new LatLng(pos.latitude+0.001,pos.longitude);
             runOnUiThread(new Runnable() {
                 @Override
                 public void run() {
-                    marker.setPosition(newPos);
+                    if(marker == null) {
+                        MarkerOptions markerOptions = new MarkerOptions();
+                        markerOptions.position(location);
+                        marker = gmap.addMarker(markerOptions);
+                    }else {
+                        marker.setPosition(newPos);
+                    }
+
                     gmap.moveCamera(CameraUpdateFactory.newLatLng(newPos));
                 }
             });
-
-            MoveMarker(marker, newPos, times+1);
     }
 
 

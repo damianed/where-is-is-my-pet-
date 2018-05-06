@@ -55,6 +55,7 @@ public class PetDetails extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent myIntent = new Intent(PetDetails.this, PetLocationMap.class);
+                myIntent.putExtra("id",id_pet);
                 PetDetails.this.startActivity(myIntent);
             }
         });
