@@ -115,7 +115,6 @@ public class PetLocationMap extends AppCompatActivity implements OnMapReadyCallb
         uiSettings.setCompassEnabled(true);
         uiSettings.setZoomControlsEnabled(true);
 
-
         petLocation();
     }
 
@@ -141,6 +140,7 @@ public class PetLocationMap extends AppCompatActivity implements OnMapReadyCallb
                         @Override
                         public void onResponse(String response) {
                             try {
+                                //TODO esto ya no sirve
                                 System.out.println(response);
                                 JSONArray locationCoords = (JSONArray) (new JSONArray(response)).get(0);
                                 Double latitude = Double.parseDouble(locationCoords.get(0).toString());

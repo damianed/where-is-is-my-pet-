@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".AddPet">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp">
+
+        <ImageView
+            android:id="@+id/imageView2"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginBottom="10dp"
+            android:contentDescription="@string/logoDescription"
+            app:srcCompat="@drawable/logo" />
+
+        <EditText
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/black"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/txtPetName"
+            android:inputType="textPersonName"
+            android:textCursorDrawable="@null"
+            tools:targetApi="lollipop" />
+
+        <EditText
+            android:id="@+id/txtSpecies"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/black"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/txtSpecies"
+            android:inputType="text"
+            android:textCursorDrawable="@null"
+            tools:targetApi="lollipop" />
+
+        <EditText
+            android:id="@+id/txtSimNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:backgroundTint="@android:color/black"
+            android:ems="10"
+            android:gravity="center"
+            android:hint="@string/txtSimNumber"
+            android:inputType="phone"
+            android:textCursorDrawable="@null"
+            tools:targetApi="lollipop" />
+
+        <Button
+            android:id="@+id/btnAddPet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="70dp"
+            android:layout_marginRight="70dp"
+            android:layout_marginTop="10dp"
+            android:background="@color/colorPrimary"
+            android:gravity="center"
+            android:text="@string/btnAddPet"
+            android:textColor="@color/colorAccent" />
+    </LinearLayout>
+
+</android.support.constraint.ConstraintLayout>

@@ -18,4 +18,8 @@
     <string name="btnEditInfo">Editar Información</string>
     <string name="btnSave">Guardar</string>
     <string name="petImageDescription">Foto de macota</string>
+    <string name="btnAddPet">Añadir Mascota</string>
+    <string name="txtSimNumber">Numero de Sim</string>
+    <string name="txtSpecies">Especie</string>
+    <string name="txtPetName">Nombre</string>
 </resources>

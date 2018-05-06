@@ -1,11 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.LinearLayoutCompat
-    android:id="@+id/pets_layout"
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/pets_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:gravity="top"
+    android:orientation="vertical"
     tools:context=".Pets">
 
-</android.support.v7.widget.LinearLayoutCompat>
+    <LinearLayout
+        android:id="@+id/petsButtons"
+        android:layout_width="match_parent"
+        android:layout_height="442dp"
+        android:orientation="vertical"></LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="69dp"
+        android:gravity="center"
+        android:orientation="vertical">
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/btnNewPet"
+            android:layout_width="match_parent"
+            android:layout_height="62dp"
+            android:clickable="true"
+            app:srcCompat="@android:drawable/ic_input_add" />
+    </LinearLayout>
+
+</LinearLayout>
