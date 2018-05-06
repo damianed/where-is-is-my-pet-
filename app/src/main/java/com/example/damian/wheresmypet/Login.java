@@ -1,5 +1,6 @@
 package com.example.damian.wheresmypet;
 
+import android.Manifest;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,12 +17,16 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
 import java.util.HashMap;
 import java.util.Map;
 
 public class Login extends AppCompatActivity {
 
     private EditText txtUser, txtPass;
+    private String salt;
     public static String username;
 
     @Override
@@ -36,7 +41,7 @@ public class Login extends AppCompatActivity {
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                logIn(txtUser.getText().toString(),txtPass.getText().toString());
+                userCheck(txtUser.getText().toString());
             }
         });
 
@@ -49,12 +54,10 @@ public class Login extends AppCompatActivity {
         });
     }
 
-    private void logIn(String user, String pass){
-
+    private void userCheck(String user){
         RequestQueue queue = Volley.newRequestQueue(Login.this);
         username = user;
-        final String password = pass;
-        String url = "http://tec.codigobueno.org/WMP/login.php";//direccion del host
+        String url = "http://tec.codigobueno.org/WMP/userCheck.php";//direccion del host
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -62,12 +65,10 @@ public class Login extends AppCompatActivity {
                     @Override
                     public void onResponse(String response) {
                         // response
-                        System.out.println(response);
                         if(response.equals("true")){
-                            Intent myIntent = new Intent(Login.this, MainMenu.class);
-                            Login.this.startActivity(myIntent);
+                            getSalt();
                         }else if(response.equals("false")){
-                            Toast.makeText(Login.this,"El usuario o la contraseña es incorrecta.",Toast.LENGTH_SHORT).show();
+                            Toast.makeText(Login.this,"¡No encontramos una cuenta con ese nombre de usuario!", Toast.LENGTH_SHORT).show();
                         }
                     }
                 },
@@ -85,7 +86,6 @@ public class Login extends AppCompatActivity {
             {
                 Map<String, String>  params = new HashMap<String, String>();
                 params.put("username", username);
-                params.put("password", password);
 
                 return params;
             }
@@ -93,4 +93,87 @@ public class Login extends AppCompatActivity {
         queue.add(postRequest);
     }
 
+    private void passwordCheck() {
+        RequestQueue queue = Volley.newRequestQueue(Login.this);
+        String url = "http://tec.codigobueno.org/WMP/passCheck.php";//direccion del host
+        final String enteredPass = passwordHashing.hashPassword(salt, txtPass.getText().toString());
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        System.out.println(response);
+                        if(response.equals("true")){
+                            Intent myIntent = new Intent(Login.this, MainMenu.class);
+                            Login.this.startActivity(myIntent);
+                        }else if(response.equals("false")){
+                            Toast.makeText(Login.this,"¡La contraseña es incorrecta!", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("username", username);
+                params.put("password", enteredPass);
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    private void getSalt() {
+        RequestQueue queue;
+        queue = Volley.newRequestQueue(Login.this);
+        String url = "http://tec.codigobueno.org/WMP/query.php";
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        try {
+                            System.out.print("HOTO " + response);
+                            JSONArray users = (JSONArray) (new JSONArray(response)).get(0);
+                            salt = users.get(0).toString();
+                            passwordCheck();
+                        } catch (JSONException e) {
+                            System.out.print("HOTO " + response);
+                            e.printStackTrace();
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("query", "SELECT salt FROM USERS WHERE username = '" + username + "';");
+
+                return params;
+            }
+        };
+
+        queue.add(postRequest);
+    }
 }

@@ -16,21 +16,28 @@ import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class Register extends AppCompatActivity {
 
+    EditText txtEmail, txtUser, txtPassword, txtName, txtLastName;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register);
-        final EditText txtUser = findViewById(R.id.txtUser);
-        final EditText txtPassword = findViewById(R.id.txtPassword);
-        final EditText txtName = findViewById(R.id.txtName);
-        final EditText txtLastName = findViewById(R.id.txtLastName);
-        final EditText txtEmail = findViewById(R.id.txtEmail);
+        txtUser = findViewById(R.id.txtUser);
+        txtPassword = findViewById(R.id.txtPassword);
+        txtName = findViewById(R.id.txtName);
+        txtLastName = findViewById(R.id.txtLastName);
+        txtEmail = findViewById(R.id.txtEmail);
         Button btnRegister = findViewById(R.id.btnRegister);
         btnRegister.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -41,11 +48,9 @@ public class Register extends AppCompatActivity {
                         txtLastName.getText().toString(),
                         txtEmail.getText().toString()))
 
-                    register(txtUser.getText().toString(),
-                            txtPassword.getText().toString(),
-                            txtName.getText().toString(),
-                            txtLastName.getText().toString(),
-                            txtEmail.getText().toString());
+                {
+                    checkUsernameAvailable(txtUser.getText().toString());
+                }
             }
         });
     }
@@ -91,7 +96,7 @@ public class Register extends AppCompatActivity {
             Toast.makeText(Register.this, "¡Ups! El correo electrónico es demasiado largo.", Toast.LENGTH_SHORT).show();
             return false;
         }
-        else if (!_email.matches("[-\\w]+[@][-.\\w]+(.com)")) {
+        else if (!_email.matches("[-\\w]+[@][-.\\w]+[.][a-z]{3}")) {
             Toast.makeText(Register.this, "Parece que ese no es un correo electrónico válido.", Toast.LENGTH_SHORT).show();
             return false;
         }
@@ -99,10 +104,12 @@ public class Register extends AppCompatActivity {
             return true;
     }
 
-    private void register(String _user, String _pass, String _name, String _lastName, String _email) {
+    private void register(String _user, String _pass, String _name, String _lastName, String _email) throws NoSuchAlgorithmException {
         RequestQueue regQue = Volley.newRequestQueue(Register.this);
+        final String salt = generateSalt();
+        String buildPass = passwordHashing.hashPassword(salt, _pass);
         final String user = _user;
-        final String pass = _pass;
+        final String pass = buildPass;
         final String name = _name;
         final String lastName = _lastName;
         final String email = _email;
@@ -137,9 +144,63 @@ public class Register extends AppCompatActivity {
                 params.put("name", name);
                 params.put("lastName", lastName);
                 params.put("email", email);
+                params.put("salt", salt);
                 return params;
             }
         };
         regQue.add(postRequest);
+    }
+
+    private void checkUsernameAvailable(final String _user) {
+        RequestQueue queue = Volley.newRequestQueue(Register.this);
+        String url = "http://tec.codigobueno.org/WMP/userCheck.php";//direccion del host
+
+        StringRequest postRequest = new StringRequest(Request.Method.POST, url,
+                new Response.Listener<String>()
+                {
+                    @Override
+                    public void onResponse(String response) {
+                        // response
+                        if(response.equals("true")){
+                            Toast.makeText(Register.this,"¡Ese nombre de usuario ya existe!", Toast.LENGTH_SHORT).show();
+                        }else if(response.equals("false")){
+                            try {
+                                register(txtUser.getText().toString(),
+                                        txtPassword.getText().toString(),
+                                        txtName.getText().toString(),
+                                        txtLastName.getText().toString(),
+                                        txtEmail.getText().toString());
+                            } catch (NoSuchAlgorithmException e) {
+                                e.printStackTrace();
+                            }
+                        }
+                    }
+                },
+                new Response.ErrorListener()
+                {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        // error
+                        Log.d("Error.Response", error.getMessage());
+                    }
+                }
+        ) {
+            @Override
+            protected Map<String, String> getParams()
+            {
+                Map<String, String>  params = new HashMap<String, String>();
+                params.put("username", _user);
+
+                return params;
+            }
+        };
+        queue.add(postRequest);
+    }
+
+    private String generateSalt() throws NoSuchAlgorithmException {
+        final Random r = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[20];
+        r.nextBytes(salt);
+        return salt.toString().replace('[',' ').trim();
     }
 }
