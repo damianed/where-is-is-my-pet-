@@ -9,11 +9,16 @@
     android:orientation="vertical"
     tools:context=".Pets">
 
-    <LinearLayout
-        android:id="@+id/petsButtons"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="442dp"
-        android:orientation="vertical"></LinearLayout>
+        android:layout_height="440dp">
+
+        <LinearLayout
+            android:id="@+id/petsButtons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" />
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -26,7 +31,8 @@
             android:layout_width="match_parent"
             android:layout_height="62dp"
             android:clickable="true"
-            app:srcCompat="@android:drawable/ic_input_add" />
+            app:srcCompat="@android:drawable/ic_input_add"
+            android:focusable="true" />
     </LinearLayout>
 
 </LinearLayout>

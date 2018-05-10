@@ -5,6 +5,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
@@ -83,25 +84,43 @@ public class Pets extends AppCompatActivity {
     }
 
     private void showPets(JSONArray pets) throws JSONException {
-        for (int i=0;i<pets.length();i++){
-            JSONArray pet = pets.getJSONArray(i);
-            final Button petButton = new Button(this);
-            final String id = pet.get(0).toString();
-            petButton.setText(pet.get(2).toString());
-            //setimage to pet.get("1");
-            LinearLayout layout = findViewById(R.id.petsButtons);
-            layout.addView(petButton);
-
-            petButton.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent myIntent = new Intent(Pets.this, PetDetails.class);
-                    myIntent.putExtra("name", petButton.getText());
-                    myIntent.putExtra("id",id);
-                    //myIntent.putExtra();
-                    Pets.this.startActivity(myIntent);
+        LinearLayout layout = findViewById(R.id.petsButtons);
+        int i=0;
+        int petCount = pets.length();
+        System.out.println(petCount);
+        while (i<petCount){
+            LinearLayout horizontal = new LinearLayout(this);
+            horizontal.setOrientation(LinearLayout.HORIZONTAL);
+            horizontal.setGravity(Gravity.CENTER);
+            System.out.println("Se creo un layout");
+            for(int j=0;j<3;j++){
+                if(i>=petCount){
+                    System.out.println("flip");
+                    break;
                 }
-            });
+                JSONArray pet = pets.getJSONArray(i);
+                final Button petButton = new Button(this);
+                final String id = pet.get(0).toString();
+                petButton.setText(pet.get(2).toString());
+                //setimage to pet.get("1");
+                petButton.setWidth(layout.getWidth()/3);
+                horizontal.addView(petButton);
+                petButton.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent myIntent = new Intent(Pets.this, PetDetails.class);
+                        myIntent.putExtra("name", petButton.getText());
+                        myIntent.putExtra("id",id);
+                        //myIntent.putExtra();
+                        Pets.this.startActivity(myIntent);
+                    }
+                });
+
+                i++;
+            }
+
+            layout.addView(horizontal);
+            System.out.println("layout added");
         }
     }
 
