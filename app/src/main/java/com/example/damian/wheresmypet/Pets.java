@@ -1,6 +1,8 @@
 package com.example.damian.wheresmypet;
 
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -91,8 +93,8 @@ public class Pets extends AppCompatActivity {
         while (i<petCount){
             LinearLayout horizontal = new LinearLayout(this);
             horizontal.setOrientation(LinearLayout.HORIZONTAL);
-            horizontal.setGravity(Gravity.CENTER);
-            System.out.println("Se creo un layout");
+            horizontal.setPadding(5,5,5,5);
+
             for(int j=0;j<3;j++){
                 if(i>=petCount){
                     System.out.println("flip");
@@ -104,6 +106,12 @@ public class Pets extends AppCompatActivity {
                 petButton.setText(pet.get(2).toString());
                 //setimage to pet.get("1");
                 petButton.setWidth(layout.getWidth()/3);
+                petButton.setHeight(layout.getWidth()/3);
+                GradientDrawable gradientDrawable = new GradientDrawable();
+                gradientDrawable.setColor(getResources().getColor(R.color.colorPrimary));
+                gradientDrawable.setCornerRadius(layout.getWidth()/3);
+                gradientDrawable.setStroke(2, getResources().getColor(R.color.colorPrimary));
+                petButton.setBackground(gradientDrawable);
                 horizontal.addView(petButton);
                 petButton.setOnClickListener(new View.OnClickListener() {
                     @Override
@@ -120,7 +128,6 @@ public class Pets extends AppCompatActivity {
             }
 
             layout.addView(horizontal);
-            System.out.println("layout added");
         }
     }
 
