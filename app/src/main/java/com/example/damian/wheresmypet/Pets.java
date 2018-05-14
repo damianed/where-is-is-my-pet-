@@ -104,9 +104,16 @@ public class Pets extends AppCompatActivity {
                 final Button petButton = new Button(this);
                 final String id = pet.get(0).toString();
                 petButton.setText(pet.get(2).toString());
+                petButton.setTextColor(getResources().getColor(R.color.colorAccent));
                 //setimage to pet.get("1");
-                petButton.setWidth(layout.getWidth()/3);
-                petButton.setHeight(layout.getWidth()/3);
+                petButton.setWidth((layout.getWidth()-60)/3);
+                petButton.setHeight((layout.getWidth()-60)/3);
+                LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(
+                        LinearLayout.LayoutParams.WRAP_CONTENT,
+                        LinearLayout.LayoutParams.WRAP_CONTENT
+                );
+                params.setMargins(10, 20, 10, 10);
+                petButton.setLayoutParams(params);
                 GradientDrawable gradientDrawable = new GradientDrawable();
                 gradientDrawable.setColor(getResources().getColor(R.color.colorPrimary));
                 gradientDrawable.setCornerRadius(layout.getWidth()/3);

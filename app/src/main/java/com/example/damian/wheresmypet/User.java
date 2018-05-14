@@ -1,9 +1,11 @@
 package com.example.damian.wheresmypet;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -24,7 +26,7 @@ public class User extends AppCompatActivity {
 
     RequestQueue queue;
     TextView txtUsername, txtName, txtLastName, txtEmail;
-    String imgPath;
+    Button btnEdit;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +37,21 @@ public class User extends AppCompatActivity {
         txtName=findViewById(R.id.txtName);
         txtLastName=findViewById(R.id.txtLastName);
         txtEmail=findViewById(R.id.txtEmail);
+        btnEdit=findViewById(R.id.btnEdit);
         queue = Volley.newRequestQueue(User.this);
         String url = "http://tec.codigobueno.org/WMP/query.php";
+
+        btnEdit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent myIntent = new Intent(User.this, EditUser.class);
+                myIntent.putExtra("Name", txtName.getText());
+                myIntent.putExtra("LastName", txtLastName.getText());
+                myIntent.putExtra("Username", txtUsername.getText());
+                myIntent.putExtra("Email", txtEmail.getText());
+                User.this.startActivity(myIntent);
+            }
+        });
 
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
@@ -65,7 +80,7 @@ public class User extends AppCompatActivity {
             protected Map<String, String> getParams()
             {
                 Map<String, String>  params = new HashMap<String, String>();
-                params.put("query", "SELECT username, name, last_name, email  FROM USERS WHERE username = '" + Login.username + "';");
+                params.put("query", "SELECT username, name, last_name, email, password  FROM USERS WHERE username = '" + Login.username + "';");
 
                 return params;
             }
@@ -82,6 +97,5 @@ public class User extends AppCompatActivity {
         txtName.setText(user.get(1).toString());
         txtLastName.setText(user.get(2).toString());
         txtEmail.setText(user.get(3).toString());
-        imgPath = user.get(4).toString();
     }
 }

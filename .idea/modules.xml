@@ -2,10 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file:///mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/Where Is My Pet-where-is-is-my-pet-.iml" filepath="/mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/Where Is My Pet-where-is-is-my-pet-.iml" />
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
       <module fileurl="file:///mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/app/app.iml" filepath="/mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/where-is-is-my-pet-.iml" filepath="$PROJECT_DIR$/where-is-is-my-pet-.iml" />
+      <module fileurl="file:///mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/where-is-is-my-pet-.iml" filepath="/mnt/HOME/Documents/Original_Proyects/Code/Android/Where Is My Pet/where-is-is-my-pet-/where-is-is-my-pet-.iml" />
     </modules>
   </component>
 </project>

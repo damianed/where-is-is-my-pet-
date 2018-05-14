@@ -10,6 +10,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
+import com.android.volley.NetworkResponse;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -20,8 +21,12 @@ import com.android.volley.toolbox.Volley;
 import org.json.JSONArray;
 import org.json.JSONException;
 
+import java.security.NoSuchAlgorithmException;
+import java.security.SecureRandom;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Random;
 
 public class EditUser extends AppCompatActivity {
 
@@ -40,7 +45,6 @@ public class EditUser extends AppCompatActivity {
         editUser=findViewById(R.id.editUsername);
         editPass=findViewById(R.id.editPass);
         editEmail=findViewById(R.id.editEmail);
-        imgUser=findViewById(R.id.imgUser);
         btnSave = findViewById(R.id.btnSave);
 
         Intent userIntent = getIntent();
@@ -49,8 +53,12 @@ public class EditUser extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                getId();
-                saveUser();
+//                try {
+                    getId();
+//                    saveUser();
+//                } catch (NoSuchAlgorithmException e) {
+//                    e.printStackTrace();
+//                }
             }
         });
     }
@@ -68,8 +76,15 @@ public class EditUser extends AppCompatActivity {
                             System.out.print("HOTO " + response);
                             JSONArray user = new JSONArray(response);
                             userID = user.get(0).toString();
+                            userID = userID.replaceAll("\"","");
+                            userID=userID.replace('[',' ');
+                            userID=userID.replace(']',' ').trim();
+                            System.out.println("id1"+ userID);
+                            saveUser();
                         } catch (JSONException e) {
                             System.out.print("HOTO " + response);
+                            e.printStackTrace();
+                        } catch (NoSuchAlgorithmException e) {
                             e.printStackTrace();
                         }
                     }
@@ -78,14 +93,14 @@ public class EditUser extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.getMessage());
+                        Log.d("Error1.Response", error.getMessage());
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams()
             {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 params.put("query", "SELECT id_user FROM USERS WHERE username = '" + Login.username + "';");
 
                 return params;
@@ -95,21 +110,29 @@ public class EditUser extends AppCompatActivity {
         queue.add(postRequest);
     }
 
-    private void saveUser() {
+    private void saveUser() throws NoSuchAlgorithmException {
         RequestQueue queue = Volley.newRequestQueue(EditUser.this);
         String url = "http://tec.codigobueno.org/WMP/updateUser.php";
+        final String salt = generateSalt();
+        String buildPass = passwordHashing.hashPassword(salt, editPass.getText().toString());
         final String user = editUser.getText().toString();
-        final String pass = editPass.getText().toString();
+        final String pass = buildPass;
         final String name = editName.getText().toString();
         final String lastName = editLastName.getText().toString();
         final String email = editEmail.getText().toString();
+        System.out.println("user"+user);
+        System.out.println("pass"+pass);
+        System.out.println("name"+name);
+        System.out.println("lastname"+lastName);
+        System.out.println("email"+email);
+        System.out.println("id"+userID);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {
                     @Override
                     public void onResponse(String response) {
                         if(response.equals("success")){
-                            Intent myIntent = new Intent(EditUser.this, Login.class);
+                            Intent myIntent = new Intent(EditUser.this, MainMenu.class);
                             EditUser.this.startActivity(myIntent);
                         }else if(response.equals("fail")){
                             Toast.makeText(EditUser.this,"Parece que algo salio mal, favor de reintentarlo.",Toast.LENGTH_SHORT).show();
@@ -120,19 +143,20 @@ public class EditUser extends AppCompatActivity {
                 {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d("Error.Response", error.getMessage());
+                        Log.d("Error2.Response", error.getMessage());
                     }
                 }
         ) {
             @Override
             protected Map<String, String> getParams()
             {
-                Map<String, String>  params = new HashMap<String, String>();
+                Map<String, String>  params = new HashMap<>();
                 params.put("username", user);
                 params.put("password", pass);
                 params.put("name", name);
                 params.put("lastName", lastName);
                 params.put("email", email);
+                params.put("salt", salt);
                 params.put("id", userID);
                 return params;
             }
@@ -145,5 +169,12 @@ public class EditUser extends AppCompatActivity {
         editLastName.setText(_userIntent.getStringExtra("LastName"));
         editUser.setText(_userIntent.getStringExtra("Username"));
         editEmail.setText(_userIntent.getStringExtra("Email"));
+    }
+
+    private String generateSalt() throws NoSuchAlgorithmException {
+        final Random r = SecureRandom.getInstance("SHA1PRNG");
+        byte[] salt = new byte[20];
+        r.nextBytes(salt);
+        return salt.toString().replace('[',' ').trim();
     }
 }

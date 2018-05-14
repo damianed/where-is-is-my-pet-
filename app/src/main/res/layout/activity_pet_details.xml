@@ -8,17 +8,51 @@
     android:orientation="vertical"
     tools:context=".PetDetails">
 
-    <ImageView
-        android:id="@+id/imageView6"
-        android:layout_width="205dp"
-        android:layout_height="131dp"
-        android:contentDescription="@string/petImageDescription"
-        app:srcCompat="@android:color/background_dark" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="384dp"
         android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Nombre" />
+
+        <TextView
+            android:id="@+id/txtName"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/pasos"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Pasos Dados" />
+
+        <TextView
+            android:id="@+id/txtSteps"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="TextView" />
+
+        <TextView
+            android:id="@+id/distancia"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:text="Distancia" />
+
+        <TextView
+            android:id="@+id/txtDistancia"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:layout_width="match_parent"

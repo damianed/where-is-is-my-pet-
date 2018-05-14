@@ -30,6 +30,7 @@
         <activity android:name=".User" />
         <activity android:name=".PetDetails" />
         <activity android:name=".PetLocationMap" />
+        <activity android:name=".EditUser" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
