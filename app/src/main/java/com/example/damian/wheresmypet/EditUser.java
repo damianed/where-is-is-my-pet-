@@ -53,12 +53,7 @@ public class EditUser extends AppCompatActivity {
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                try {
                     getId();
-//                    saveUser();
-//                } catch (NoSuchAlgorithmException e) {
-//                    e.printStackTrace();
-//                }
             }
         });
     }
@@ -79,7 +74,6 @@ public class EditUser extends AppCompatActivity {
                             userID = userID.replaceAll("\"","");
                             userID=userID.replace('[',' ');
                             userID=userID.replace(']',' ').trim();
-                            System.out.println("id1"+ userID);
                             saveUser();
                         } catch (JSONException e) {
                             System.out.print("HOTO " + response);
@@ -120,12 +114,6 @@ public class EditUser extends AppCompatActivity {
         final String name = editName.getText().toString();
         final String lastName = editLastName.getText().toString();
         final String email = editEmail.getText().toString();
-        System.out.println("user"+user);
-        System.out.println("pass"+pass);
-        System.out.println("name"+name);
-        System.out.println("lastname"+lastName);
-        System.out.println("email"+email);
-        System.out.println("id"+userID);
         StringRequest postRequest = new StringRequest(Request.Method.POST, url,
                 new Response.Listener<String>()
                 {

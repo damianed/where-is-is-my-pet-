@@ -36,7 +36,8 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDVkmzKTrbxn0XJkGk2ZYCP2lfnoFyZSlM" />
 
-        <activity android:name=".AddPet"></activity>
+        <activity android:name=".AddPet" />
+        <activity android:name=".EditPet"></activity>
     </application>
 
 </manifest>
