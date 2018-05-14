@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -22,9 +23,9 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class PetDetails extends AppCompatActivity {
-    private EditText txtName;
-    private EditText txtSteps;
-    private EditText txtDistance;
+    private TextView txtName;
+    private TextView txtSteps;
+    private TextView txtDistance;
     private String id_pet;
     private Button btnLocation, btnEditInfo;
     RequestQueue queue;
