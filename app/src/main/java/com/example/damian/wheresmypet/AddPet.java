@@ -21,7 +21,7 @@ import java.util.Map;
 
 public class AddPet extends AppCompatActivity {
     RequestQueue queue;
-    EditText txtName, txtSpecies,  txtSimNumber;
+    EditText txtName, txtSpecies;
     Button btnAddPet;
 
     @Override
@@ -30,7 +30,6 @@ public class AddPet extends AppCompatActivity {
         setContentView(R.layout.activity_add_pet);
         txtName = findViewById(R.id.txtName);
         txtSpecies = findViewById(R.id.txtSpecies);
-        txtSimNumber = findViewById(R.id.txtSimNumber);
         btnAddPet = findViewById(R.id.btnAddPet);
 
 
@@ -63,8 +62,8 @@ public class AddPet extends AppCompatActivity {
                     protected Map<String, String> getParams()
                     {
                         Map<String, String>  params = new HashMap<String, String>();
-                        params.put("query", "INSERT INTO PETS(id_user, name, species, sim_number) values((SELECT id_user from USERS where username ='" + Login.username + "'),'" + txtName.getText() + "','" + txtSpecies.getText() + "'," + txtSimNumber.getText() + ")");
-                        System.out.println("INSERT INTO PETS(id_user, name, species, sim_number) values((SELECT id_user from USERS where username ='" + Login.username + "'),'" + txtName.getText() + "','" + txtSpecies.getText() + "'," + txtSimNumber.getText() + ")");
+                        params.put("query", "INSERT INTO PETS(id_user, name, species) values((SELECT id_user from USERS where username ='" + Login.username + "'),'" + txtName.getText() + "','" + txtSpecies.getText() + "')");
+                        System.out.println("INSERT INTO PETS(id_user, name, species, sim_number) values((SELECT id_user from USERS where username ='" + Login.username + "'),'" + txtName.getText() + "','" + txtSpecies.getText() + "',)");
                         return params;
                     }
                 };

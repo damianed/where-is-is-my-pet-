@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Where\'s My Pet</string>
+    <string name="app_name">Ganado Asegurado</string>
     <string name="txtUser">Nombre de Usuario</string>
     <string name="txtPass">Contraseña</string>
     <string name="logoDescription">Un punto de mira con una huella de perro en el medio.</string>

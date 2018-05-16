@@ -49,19 +49,6 @@
             android:textCursorDrawable="@null"
             tools:targetApi="lollipop" />
 
-        <EditText
-            android:id="@+id/txtSimNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="10dp"
-            android:backgroundTint="@android:color/black"
-            android:ems="10"
-            android:gravity="center"
-            android:hint="@string/txtSimNumber"
-            android:inputType="phone"
-            android:textCursorDrawable="@null"
-            tools:targetApi="lollipop" />
-
         <Button
             android:id="@+id/btnAddPet"
             android:layout_width="match_parent"
